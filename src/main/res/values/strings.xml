@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">quizlocker</string>
+
+    <!-- 퀴즈 종류 -->
+    <string-array name="category">
+        <item>일반상식</item>
+        <item>역사</item>
+        <item>수도</item>
+    </string-array>
+</resources>
