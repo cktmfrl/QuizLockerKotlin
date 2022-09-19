@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chahye.quizlocker">
 
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
-
     <!-- 브로드캐스트 수신을 위한 권한 요청(부팅이 완료될 때) -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- Foreground 서비스 실행 권한 -->
@@ -20,38 +16,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quizlocker">
-        <activity
-            android:name="com.chahye.quizlocker.QuizLockerActivity"
-            android:exported="false" />
-
-        <service
-            android:name="com.chahye.quizlocker.LockScreenService"
-            android:enabled="true"
-            android:exported="true" />
 
         <activity
-            android:name="com.chahye.quizlocker.ScreenOffExActivity"
-            android:exported="false" />
-        <!-- <activity android:name=".MainActivity" /> -->
-        <activity android:name="com.chahye.quizlocker.FileExActivity" />
-        <activity android:name="com.chahye.quizlocker.PrefExActivity" />
-        <activity android:name="com.chahye.quizlocker.PrefFragmentActivity" />
-        <activity
-            android:name="com.chahye.quizlocker.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 암시적 인텐트로 실행되는 브로드캐스트 리시버 등록 -->
+        </activity>
+
+        <activity
+            android:name=".QuizLockerActivity"
+            android:exported="false" />
+
+        <service
+            android:name=".LockScreenService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <!-- 암시적 인텐트로 실행되는 브로드캐스트 리시버 등록 -->
         <receiver
-            android:name="com.chahye.quizlocker.BootCompleteReceiver"
+            android:name=".BootCompleteReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

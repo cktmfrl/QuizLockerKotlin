@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setTitle(R.string.settings)
+
         // preferenceContent FrameLayout 영역을 PreferenceFragment 로 교체
         supportFragmentManager.beginTransaction().replace(R.id.preferenceContent, fragment).commit()
 
