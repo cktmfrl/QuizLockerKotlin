@@ -8,7 +8,6 @@ import android.os.Bundle
 import androidx.preference.MultiSelectListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
-import com.chahye.quizlocker.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -45,6 +44,7 @@ class MainActivity : AppCompatActivity() {
 
             // 퀴즈 종류 요약정보에 현재 선택된 항목을 보여줌
             val categoryPref = findPreference<MultiSelectListPreference>("category") as MultiSelectListPreference
+            categoryPref.setDefaultValue(setOf("수도"))
             categoryPref.summary = categoryPref.values.joinToString(", ")
 
             // 환경설정 정보값이 변경될 때에도 요약정보를 변경하도록 리스너 등록

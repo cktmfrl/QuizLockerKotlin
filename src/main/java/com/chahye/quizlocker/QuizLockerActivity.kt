@@ -7,12 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
 import android.view.WindowManager
 import android.widget.SeekBar
-import com.chahye.quizlocker.R
+import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_quiz_locker.*
-import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
@@ -43,11 +41,19 @@ class QuizLockerActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_quiz_locker)
 
-        // 퀴즈 데이터를 가져와 선택하여 보여준다
-        val json = assets.open("capital.json").reader().readText()
-        val quizArray = JSONArray(json)
+        // 설정한 카테고리 가져오기
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        var category = pref.getStringSet("category", null)
 
-        Log.d("QuizLockerActivity", "onCreate: ")
+        // 선택한 카테고리가 없을 경우 화면 종료
+        if (category?.size == 0) {
+            finish()
+            //category = setOf("일반상식") // default value
+        }
+
+        //  퀴즈 데이터를 가져와 선택하여 보여준다
+        val json = assets.open("quiz.json").reader().readText()
+        var quizArray = JSONObject(json).getJSONArray(category!!.random())
         var random = Random().nextInt(quizArray.length())
         quiz = quizArray.getJSONObject(random)
 
@@ -56,7 +62,8 @@ class QuizLockerActivity : AppCompatActivity() {
         choice2.text = quiz?.getString("choice2")
 
         // 정답 및 오답횟수를 보여준다
-        val id = quiz?.getInt("id").toString() ?: ""
+        //val id = quiz?.getInt("id").toString() ?: "
+        val id = quiz?.getString("id") ?: ""
         correctCountLabel.text = "정답횟수: ${correctAnswerPref.getInt(id, 0)}"
         wrongCountLabel.text = "오답횟수: ${wrongAnswerPref.getInt(id, 0)}"
 
@@ -97,6 +104,7 @@ class QuizLockerActivity : AppCompatActivity() {
             }
 
         })
+
     }
 
     // 정답 체크 함수
@@ -105,7 +113,8 @@ class QuizLockerActivity : AppCompatActivity() {
             when {
                 choice == it.getString("answer") -> {
                     // 정답횟수 증가
-                    val id = it.getInt("id").toString()
+                    //val id = it.getInt("id").toString()
+                    val id = it.getString("id")
                     var count = correctAnswerPref.getInt(id, 0)
                     count++
                     correctAnswerPref.edit().putInt(id, count).apply()
@@ -116,7 +125,8 @@ class QuizLockerActivity : AppCompatActivity() {
                 }
                 else -> {
                     // 오답횟수 증가
-                    val id = it.getInt("id").toString()
+                    //val id = it.getInt("id").toString()
+                    val id = it.getString("id")
                     var count = wrongAnswerPref.getInt(id, 0)
                     count++
                     wrongAnswerPref.edit().putInt(id, count).apply()
