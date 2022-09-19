@@ -62,7 +62,6 @@ class QuizLockerActivity : AppCompatActivity() {
         choice2.text = quiz?.getString("choice2")
 
         // 정답 및 오답횟수를 보여준다
-        //val id = quiz?.getInt("id").toString() ?: "
         val id = quiz?.getString("id") ?: ""
         correctCountLabel.text = "정답횟수: ${correctAnswerPref.getInt(id, 0)}"
         wrongCountLabel.text = "오답횟수: ${wrongAnswerPref.getInt(id, 0)}"
@@ -113,19 +112,15 @@ class QuizLockerActivity : AppCompatActivity() {
             when {
                 choice == it.getString("answer") -> {
                     // 정답횟수 증가
-                    //val id = it.getInt("id").toString()
                     val id = it.getString("id")
                     var count = correctAnswerPref.getInt(id, 0)
                     count++
                     correctAnswerPref.edit().putInt(id, count).apply()
                     correctCountLabel.text = "정답횟수: ${count}"
-
-                    // Activity 종료
                     finish()
                 }
                 else -> {
                     // 오답횟수 증가
-                    //val id = it.getInt("id").toString()
                     val id = it.getString("id")
                     var count = wrongAnswerPref.getInt(id, 0)
                     count++

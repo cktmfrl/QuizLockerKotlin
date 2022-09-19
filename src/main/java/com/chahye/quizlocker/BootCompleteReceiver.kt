@@ -13,7 +13,7 @@ class BootCompleteReceiver: BroadcastReceiver() {
         when {
             // 부팅이 완료될 때의 메시지인지 확인
             intent?.action == Intent.ACTION_BOOT_COMPLETED -> {
-                // Intent.ACTION_BOOT_COMPLETED : 오레오 버전 이후에도 암시적 인텐트로 사용할 수 있는 메시지
+                // 참고) Intent.ACTION_BOOT_COMPLETED : 오레오 버전 이후에도 암시적 인텐트로 사용할 수 있는 메시지
                 Log.d(TAG, "부팅이 완료됨")
                 Toast.makeText(context, "퀴즈 잠금화면: 부팅이 완료됨", Toast.LENGTH_LONG).show()
 

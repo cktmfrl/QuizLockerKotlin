@@ -12,10 +12,7 @@ import com.chahye.quizlocker.R
 
 class LockScreenService : Service() {
 
-    // 런타임에 등록할 브로드캐스트 리시버
-    //
-    // 화면이 꺼졌을 때 전달되는 브로드캐스트 메시지(Intent.ACTION_SCREEN_OFF)는 암시적 허용이 되지 않음.
-    // 이런 경우 매니페스트가 아니라 런타임에 브로드캐스트 리시버를 등록해야 함. 런타임에 브로드캐스트 리시버를 등록(597p)
+    // 화면이 꺼졌을 때 전달되는 브로드캐스트 메시지(Intent.ACTION_SCREEN_OFF)는 암시적 허용이 되지 않음. 런타임에 등록(597p)
     var screenOffReceiver: ScreenOffReceiver? = null
 
     private val ANDROID_CHANNEL_ID = "com.chahye.quizlocker"
